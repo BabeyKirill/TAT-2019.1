@@ -1,0 +1,16 @@
+It is tasks:
+task1.1
+task1.2
+task1.3
+
+Control questions:
+1) 1+1 = ?
+2) 1+2 = ?
+3) 2*2 = ?
+
+Answers:
+1) 2
+2) 3
+3) 4
+
+

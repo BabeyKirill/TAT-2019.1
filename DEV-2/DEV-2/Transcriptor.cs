@@ -3,6 +3,9 @@ using System.Text;
 
 namespace DEV_2
 {
+    /// <summary>
+    /// This class can convert words to transcription
+    /// </summary>
     public class Transcriptor
     {
         private string vowel_rule = "уаоиьъы";
@@ -10,27 +13,40 @@ namespace DEV_2
         private string consonant_rule2 = "пфктшсхцчщ";
         private string paired_consonants = "бпвфгкдтжшзс";
 
+        /// <summary>
+        /// Convert the string to transcription.
+        /// </summary>
+        /// <param name="str">transcription to convert"</param>
         public string GetTranscription(string str)
         {
+            new Validator().ValidationCheck(str);
+
+            str = str.ToLower();
+
             StringBuilder transcription = new StringBuilder(str);
 
-            VovelReplace(str, transcription);
+            VovelReplace(transcription);
 
             PairedConsonantReplace(transcription);
 
             return transcription.ToString();
         }
 
-        private void VovelReplace(string str, StringBuilder transcription)
+        /// <summary>
+        /// method which replaces vowels according to phonetic rules.
+        /// </summary>
+        /// <param name="transcription">future transcription"</param>
+        private void VovelReplace(StringBuilder transcription)
         {
+            string UnchangedWord = transcription.ToString();
             int position = 0;
             int str_position = 0;
 
-            foreach (char letter in str)
+            foreach (char letter in UnchangedWord)
             {
 
-                if (str_position + 1 < str.Length)
-                    if (letter == 'о' && str[str_position + 1] == '+')
+                if (str_position + 1 < UnchangedWord.Length)
+                    if (letter == 'о' && UnchangedWord[str_position + 1] == '+')
                     {
                         position++;
                         str_position++;
@@ -74,7 +90,7 @@ namespace DEV_2
                         }
                         else
                         {
-                            if (vowel_rule.Contains(str[str_position - 1]))
+                            if (vowel_rule.Contains(UnchangedWord[str_position - 1]))
                             {
                                 transcription.Remove(position, 1);
                                 transcription.Insert(position, "йо");
@@ -100,7 +116,7 @@ namespace DEV_2
                         }
                         else
                         {
-                            if (vowel_rule.Contains(str[str_position - 1]))
+                            if (vowel_rule.Contains(UnchangedWord[str_position - 1]))
                             {
                                 transcription.Remove(position, 1);
                                 transcription.Insert(position, "йэ");
@@ -126,7 +142,7 @@ namespace DEV_2
                         }
                         else
                         {
-                            if (vowel_rule.Contains(str[str_position - 1]))
+                            if (vowel_rule.Contains(UnchangedWord[str_position - 1]))
                             {
                                 transcription.Remove(position, 1);
                                 transcription.Insert(position, "йу");
@@ -152,7 +168,7 @@ namespace DEV_2
                         }
                         else
                         {
-                            if (vowel_rule.Contains(str[str_position - 1]))
+                            if (vowel_rule.Contains(UnchangedWord[str_position - 1]))
                             {
                                 transcription.Remove(position, 1);
                                 transcription.Insert(position, "йа");
@@ -175,59 +191,73 @@ namespace DEV_2
             }
         }
 
+        /// <summary>
+        /// replaces the deaf consonant on her paired voiced consonant
+        /// </summary>
+        /// <param name="word">word"</param>
+        /// /// <param name="PositionOfLetter">position of consonant letter in word"</param>
         private void DeafToVoiced(StringBuilder word, int PositionOfLetter)
         {
             word.Insert(PositionOfLetter, paired_consonants[paired_consonants.IndexOf(word[PositionOfLetter]) - 1]);
             word.Remove(PositionOfLetter + 1, 1);
         }
 
+        /// <summary>
+        /// replaces the voiced consonant on her paired deaf consonant
+        /// </summary>
+        /// <param name="word">word"</param>
+        /// /// <param name="PositionOfLetter">position of consonant letter in word"</param>
         private void VoicedToDeaf(StringBuilder word, int PositionOfLetter)
         {
             word.Insert(PositionOfLetter, paired_consonants[paired_consonants.IndexOf(word[PositionOfLetter]) + 1]);
             word.Remove(PositionOfLetter + 1, 1);
         }
 
-        private void PairedConsonantReplace(StringBuilder word)
+        /// <summary>
+        /// method which replaces consonants according to phonetic rules.
+        /// </summary>
+        /// <param name="transcription">future transcription"</param>
+        private void PairedConsonantReplace(StringBuilder transcription)
         {
-            if (consonant_rule1.Contains(word[word.Length - 1]))
+            if (consonant_rule1.Contains(transcription[transcription.Length - 1]))
             {
-                VoicedToDeaf(word, word.Length - 1);
+                VoicedToDeaf(transcription, transcription.Length - 1);
             }
-            if (word[word.Length - 1] == 39 && consonant_rule1.Contains(word[word.Length - 2]))
+            if (transcription[transcription.Length - 1] == 39 && consonant_rule1.Contains(transcription[transcription.Length - 2]))
             {
-                VoicedToDeaf(word, word.Length - 2);
+                VoicedToDeaf(transcription, transcription.Length - 2);
             }
 
-            for (int i = word.Length - 2; i >= 0; i--)
+            for (int i = transcription.Length - 2; i >= 0; i--)
             {
-                if (word[i] != 39)
+                if (transcription[i] != 39)
                 {
-                    if (paired_consonants.Contains(word[i]))
+                    if (paired_consonants.Contains(transcription[i]))
                     {
-                        if (consonant_rule1.Contains(word[i]) && consonant_rule2.Contains(word[i + 1]))
+                        if (consonant_rule1.Contains(transcription[i]) && consonant_rule2.Contains(transcription[i + 1]))
                         {
-                            VoicedToDeaf(word, i);
+                            VoicedToDeaf(transcription, i);
                             continue;
                         }
-                        if (consonant_rule2.Contains(word[i]) && consonant_rule1.Contains(word[i + 1]))
+                        if (consonant_rule2.Contains(transcription[i]) && consonant_rule1.Contains(transcription[i + 1]))
                         {
-                            DeafToVoiced(word, i);
+                            DeafToVoiced(transcription, i);
                         }
                     }
                 }
                 else
                 {
                     i = i--;
-                    if (paired_consonants.Contains(word[i]))
+                    if (paired_consonants.Contains(transcription[i]))
                     {
-                        if (consonant_rule1.Contains(word[i]) && consonant_rule2.Contains(word[i + 2]))
+                        if (consonant_rule1.Contains(transcription[i]) && consonant_rule2.Contains(transcription[i + 2]))
                         {
-                            VoicedToDeaf(word, i);
+                            VoicedToDeaf(transcription, i);
                             continue;
                         }
-                        if (consonant_rule2.Contains(word[i]) && consonant_rule1.Contains(word[i + 2]))
+                        if (consonant_rule2.Contains(transcription[i]) && consonant_rule1.Contains(transcription[i + 2]))
                         {
-                            DeafToVoiced(word, i);
+                            DeafToVoiced(transcription, i);
                         }
                     }
                 }

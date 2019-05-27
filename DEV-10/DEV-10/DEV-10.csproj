@@ -58,13 +58,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="DataBase\Addresses.json" />
-    <None Include="DataBase\Manufacturers.json" />
-    <None Include="DataBase\Products.json" />
-    <None Include="DataBase\Supplies.json" />
-    <None Include="DataBase\Warehouses.json" />
+    <None Include="DataBase\addresses.json" />
+    <None Include="DataBase\manufacturers.json" />
+    <None Include="DataBase\products.json" />
+    <None Include="DataBase\supplies.json" />
+    <None Include="DataBase\warehouses.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="DataBase\products.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

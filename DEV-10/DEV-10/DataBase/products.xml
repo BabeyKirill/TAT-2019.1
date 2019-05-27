@@ -1,6 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <products>
-  <product name="megaProduct">
+  <product name="Product1">
+    <id>product-1</id>
+    <amount>11</amount>
+    <productionDate>01.11.2010</productionDate>
+    <manufacturer name="Manufacturer1">
+      <id>manufacturer-1</id>
+      <country>Country1</country>
+    </manufacturer>
+    <warehouse name="Warehouse1">
+      <id>warehouse-1</id>
+      <address>
+        <countryName>Country4</countryName>
+        <cityName>City4</cityName>
+        <streetName>Street4</streetName>
+        <houseNumber>4</houseNumber>
+      </address>
+    </warehouse>
+    <supply>
+      <id>supply-1</id>
+      <description>Supply of Products1</description>
+      <date>02.11.2010</date>
+    </supply>
+  </product>
+  <product name="Product2">
     <id>product-2</id>
     <amount>12</amount>
     <productionDate>01.12.2010</productionDate>
@@ -8,11 +31,11 @@
       <id>manufacturer-3</id>
       <country>Country3</country>
     </manufacturer>
-    <warehouse name="megaWarehouse">
+    <warehouse name="Warehouse1">
       <id>warehouse-1</id>
       <address>
         <countryName>Country4</countryName>
-        <cityName>megaCity</cityName>
+        <cityName>City4</cityName>
         <streetName>Street4</streetName>
         <houseNumber>4</houseNumber>
       </address>
@@ -34,10 +57,10 @@
     <warehouse name="Warehouse2">
       <id>warehouse-2</id>
       <address>
-        <countryName>myCountry</countryName>
-        <cityName>myCity</cityName>
-        <streetName>myStreet</streetName>
-        <houseNumber>228</houseNumber>
+        <countryName>Country4</countryName>
+        <cityName>City5</cityName>
+        <streetName>Street5</streetName>
+        <houseNumber>5</houseNumber>
       </address>
     </warehouse>
     <supply>
@@ -57,10 +80,10 @@
     <warehouse name="Warehouse2">
       <id>warehouse-2</id>
       <address>
-        <countryName>myCountry</countryName>
-        <cityName>myCity</cityName>
-        <streetName>myStreet</streetName>
-        <houseNumber>228</houseNumber>
+        <countryName>Country4</countryName>
+        <cityName>City5</cityName>
+        <streetName>Street5</streetName>
+        <houseNumber>5</houseNumber>
       </address>
     </warehouse>
     <supply>
@@ -80,10 +103,10 @@
     <warehouse name="Warehouse2">
       <id>warehouse-2</id>
       <address>
-        <countryName>myCountry</countryName>
-        <cityName>myCity</cityName>
-        <streetName>myStreet</streetName>
-        <houseNumber>228</houseNumber>
+        <countryName>Country4</countryName>
+        <cityName>City5</cityName>
+        <streetName>Street5</streetName>
+        <houseNumber>5</houseNumber>
       </address>
     </warehouse>
     <supply>
@@ -100,11 +123,11 @@
       <id>manufacturer-2</id>
       <country>Country2</country>
     </manufacturer>
-    <warehouse name="megaWarehouse">
+    <warehouse name="Warehouse1">
       <id>warehouse-1</id>
       <address>
         <countryName>Country4</countryName>
-        <cityName>megaCity</cityName>
+        <cityName>City4</cityName>
         <streetName>Street4</streetName>
         <houseNumber>4</houseNumber>
       </address>
@@ -123,11 +146,11 @@
       <id>manufacturer-1</id>
       <country>Country1</country>
     </manufacturer>
-    <warehouse name="megaWarehouse">
+    <warehouse name="Warehouse1">
       <id>warehouse-1</id>
       <address>
         <countryName>Country4</countryName>
-        <cityName>megaCity</cityName>
+        <cityName>City4</cityName>
         <streetName>Street4</streetName>
         <houseNumber>4</houseNumber>
       </address>
@@ -149,10 +172,10 @@
     <warehouse name="Warehouse2">
       <id>warehouse-2</id>
       <address>
-        <countryName>myCountry</countryName>
-        <cityName>myCity</cityName>
-        <streetName>myStreet</streetName>
-        <houseNumber>228</houseNumber>
+        <countryName>Country4</countryName>
+        <cityName>City5</cityName>
+        <streetName>Street5</streetName>
+        <houseNumber>5</houseNumber>
       </address>
     </warehouse>
     <supply>
@@ -169,11 +192,11 @@
       <id>manufacturer-2</id>
       <country>Country2</country>
     </manufacturer>
-    <warehouse name="megaWarehouse">
+    <warehouse name="Warehouse1">
       <id>warehouse-1</id>
       <address>
         <countryName>Country4</countryName>
-        <cityName>megaCity</cityName>
+        <cityName>City4</cityName>
         <streetName>Street4</streetName>
         <houseNumber>4</houseNumber>
       </address>
@@ -182,29 +205,6 @@
       <id>supply-9</id>
       <description>Supply of Products9</description>
       <date>02.19.2010</date>
-    </supply>
-  </product>
-  <product name="myProduct">
-    <id>product-8080</id>
-    <amount>100500</amount>
-    <productionDate>05.20.2019</productionDate>
-    <manufacturer name="Manufacturer3">
-      <id>manufacturer-3</id>
-      <country>Country3</country>
-    </manufacturer>
-    <warehouse name="Warehouse2">
-      <id>warehouse-2</id>
-      <address>
-        <countryName>myCountry</countryName>
-        <cityName>myCity</cityName>
-        <streetName>myStreet</streetName>
-        <houseNumber>228</houseNumber>
-      </address>
-    </warehouse>
-    <supply>
-      <id>supply-7</id>
-      <description>Supply of Products7</description>
-      <date>02.17.2010</date>
     </supply>
   </product>
 </products>

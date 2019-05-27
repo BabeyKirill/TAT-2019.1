@@ -9,6 +9,7 @@
             // Creating test Jsons
             JsonsForTests.CreateAllJsons();
             */
+
             Shop myShop = new Shop();
             myShop.ShowFullDescription();
             myShop.WriteFullDescription();

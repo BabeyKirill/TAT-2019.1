@@ -1,210 +1,210 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <products>
-  <product name="Product1">
-    <id>product-1</id>
-    <amount>11</amount>
-    <productionDate>01.11.2010</productionDate>
-    <manufacturer name="Manufacturer1">
-      <id>manufacturer-1</id>
+  <product Name="Product1">
+    <Id>product-1</Id>
+    <Amount>11</Amount>
+    <ProductionDate>01.11.2010</ProductionDate>
+    <manufacturer Name="Manufacturer1">
+      <Id>manufacturer-1</Id>
       <country>Country1</country>
     </manufacturer>
-    <warehouse name="Warehouse1">
-      <id>warehouse-1</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City4</cityName>
-        <streetName>Street4</streetName>
-        <houseNumber>4</houseNumber>
-      </address>
+    <warehouse Name="Warehouse1">
+      <Id>warehouse-1</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City4</CityName>
+        <StreetName>Street4</StreetName>
+        <HouseNumber>4</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-1</id>
-      <description>Supply of Products1</description>
-      <date>02.11.2010</date>
+      <Id>supply-1</Id>
+      <Description>Supply of Products1</Description>
+      <Date>02.11.2010</Date>
     </supply>
   </product>
-  <product name="Product2">
-    <id>product-2</id>
-    <amount>12</amount>
-    <productionDate>01.12.2010</productionDate>
-    <manufacturer name="Manufacturer3">
-      <id>manufacturer-3</id>
+  <product Name="Product2">
+    <Id>product-2</Id>
+    <Amount>12</Amount>
+    <ProductionDate>01.12.2010</ProductionDate>
+    <manufacturer Name="Manufacturer3">
+      <Id>manufacturer-3</Id>
       <country>Country3</country>
     </manufacturer>
-    <warehouse name="Warehouse1">
-      <id>warehouse-1</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City4</cityName>
-        <streetName>Street4</streetName>
-        <houseNumber>4</houseNumber>
-      </address>
+    <warehouse Name="Warehouse1">
+      <Id>warehouse-1</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City4</CityName>
+        <StreetName>Street4</StreetName>
+        <HouseNumber>4</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-2</id>
-      <description>Supply of Products2</description>
-      <date>02.12.2010</date>
+      <Id>supply-2</Id>
+      <Description>Supply of Products2</Description>
+      <Date>02.12.2010</Date>
     </supply>
   </product>
-  <product name="Product3">
-    <id>product-3</id>
-    <amount>13</amount>
-    <productionDate>01.13.2010</productionDate>
-    <manufacturer name="Manufacturer3">
-      <id>manufacturer-3</id>
+  <product Name="Product3">
+    <Id>product-3</Id>
+    <Amount>13</Amount>
+    <ProductionDate>01.13.2010</ProductionDate>
+    <manufacturer Name="Manufacturer3">
+      <Id>manufacturer-3</Id>
       <country>Country3</country>
     </manufacturer>
-    <warehouse name="Warehouse2">
-      <id>warehouse-2</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City5</cityName>
-        <streetName>Street5</streetName>
-        <houseNumber>5</houseNumber>
-      </address>
+    <warehouse Name="Warehouse2">
+      <Id>warehouse-2</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City5</CityName>
+        <StreetName>Street5</StreetName>
+        <HouseNumber>5</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-3</id>
-      <description>Supply of Products3</description>
-      <date>02.13.2010</date>
+      <Id>supply-3</Id>
+      <Description>Supply of Products3</Description>
+      <Date>02.13.2010</Date>
     </supply>
   </product>
-  <product name="Product4">
-    <id>product-4</id>
-    <amount>14</amount>
-    <productionDate>01.14.2010</productionDate>
-    <manufacturer name="Manufacturer1">
-      <id>manufacturer-1</id>
+  <product Name="Product4">
+    <Id>product-4</Id>
+    <Amount>14</Amount>
+    <ProductionDate>01.14.2010</ProductionDate>
+    <manufacturer Name="Manufacturer1">
+      <Id>manufacturer-1</Id>
       <country>Country1</country>
     </manufacturer>
-    <warehouse name="Warehouse2">
-      <id>warehouse-2</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City5</cityName>
-        <streetName>Street5</streetName>
-        <houseNumber>5</houseNumber>
-      </address>
+    <warehouse Name="Warehouse2">
+      <Id>warehouse-2</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City5</CityName>
+        <StreetName>Street5</StreetName>
+        <HouseNumber>5</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-4</id>
-      <description>Supply of Products4</description>
-      <date>02.14.2010</date>
+      <Id>supply-4</Id>
+      <Description>Supply of Products4</Description>
+      <Date>02.14.2010</Date>
     </supply>
   </product>
-  <product name="Product5">
-    <id>product-5</id>
-    <amount>15</amount>
-    <productionDate>01.15.2010</productionDate>
-    <manufacturer name="Manufacturer2">
-      <id>manufacturer-2</id>
+  <product Name="Product5">
+    <Id>product-5</Id>
+    <Amount>15</Amount>
+    <ProductionDate>01.15.2010</ProductionDate>
+    <manufacturer Name="Manufacturer2">
+      <Id>manufacturer-2</Id>
       <country>Country2</country>
     </manufacturer>
-    <warehouse name="Warehouse2">
-      <id>warehouse-2</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City5</cityName>
-        <streetName>Street5</streetName>
-        <houseNumber>5</houseNumber>
-      </address>
+    <warehouse Name="Warehouse2">
+      <Id>warehouse-2</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City5</CityName>
+        <StreetName>Street5</StreetName>
+        <HouseNumber>5</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-5</id>
-      <description>Supply of Products5</description>
-      <date>02.15.2010</date>
+      <Id>supply-5</Id>
+      <Description>Supply of Products5</Description>
+      <Date>02.15.2010</Date>
     </supply>
   </product>
-  <product name="Product6">
-    <id>product-6</id>
-    <amount>16</amount>
-    <productionDate>01.16.2010</productionDate>
-    <manufacturer name="Manufacturer2">
-      <id>manufacturer-2</id>
+  <product Name="Product6">
+    <Id>product-6</Id>
+    <Amount>16</Amount>
+    <ProductionDate>01.16.2010</ProductionDate>
+    <manufacturer Name="Manufacturer2">
+      <Id>manufacturer-2</Id>
       <country>Country2</country>
     </manufacturer>
-    <warehouse name="Warehouse1">
-      <id>warehouse-1</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City4</cityName>
-        <streetName>Street4</streetName>
-        <houseNumber>4</houseNumber>
-      </address>
+    <warehouse Name="Warehouse1">
+      <Id>warehouse-1</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City4</CityName>
+        <StreetName>Street4</StreetName>
+        <HouseNumber>4</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-6</id>
-      <description>Supply of Products6</description>
-      <date>02.16.2010</date>
+      <Id>supply-6</Id>
+      <Description>Supply of Products6</Description>
+      <Date>02.16.2010</Date>
     </supply>
   </product>
-  <product name="Product7">
-    <id>product-7</id>
-    <amount>17</amount>
-    <productionDate>01.17.2010</productionDate>
-    <manufacturer name="Manufacturer1">
-      <id>manufacturer-1</id>
+  <product Name="Product7">
+    <Id>product-7</Id>
+    <Amount>17</Amount>
+    <ProductionDate>01.17.2010</ProductionDate>
+    <manufacturer Name="Manufacturer1">
+      <Id>manufacturer-1</Id>
       <country>Country1</country>
     </manufacturer>
-    <warehouse name="Warehouse1">
-      <id>warehouse-1</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City4</cityName>
-        <streetName>Street4</streetName>
-        <houseNumber>4</houseNumber>
-      </address>
+    <warehouse Name="Warehouse1">
+      <Id>warehouse-1</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City4</CityName>
+        <StreetName>Street4</StreetName>
+        <HouseNumber>4</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-7</id>
-      <description>Supply of Products7</description>
-      <date>02.17.2010</date>
+      <Id>supply-7</Id>
+      <Description>Supply of Products7</Description>
+      <Date>02.17.2010</Date>
     </supply>
   </product>
-  <product name="Product8">
-    <id>product-8</id>
-    <amount>18</amount>
-    <productionDate>01.18.2010</productionDate>
-    <manufacturer name="Manufacturer3">
-      <id>manufacturer-3</id>
+  <product Name="Product8">
+    <Id>product-8</Id>
+    <Amount>18</Amount>
+    <ProductionDate>01.18.2010</ProductionDate>
+    <manufacturer Name="Manufacturer3">
+      <Id>manufacturer-3</Id>
       <country>Country3</country>
     </manufacturer>
-    <warehouse name="Warehouse2">
-      <id>warehouse-2</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City5</cityName>
-        <streetName>Street5</streetName>
-        <houseNumber>5</houseNumber>
-      </address>
+    <warehouse Name="Warehouse2">
+      <Id>warehouse-2</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City5</CityName>
+        <StreetName>Street5</StreetName>
+        <HouseNumber>5</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-8</id>
-      <description>Supply of Products8</description>
-      <date>02.18.2010</date>
+      <Id>supply-8</Id>
+      <Description>Supply of Products8</Description>
+      <Date>02.18.2010</Date>
     </supply>
   </product>
-  <product name="Product9">
-    <id>product-9</id>
-    <amount>19</amount>
-    <productionDate>01.19.2010</productionDate>
-    <manufacturer name="Manufacturer2">
-      <id>manufacturer-2</id>
+  <product Name="Product9">
+    <Id>product-9</Id>
+    <Amount>19</Amount>
+    <ProductionDate>01.19.2010</ProductionDate>
+    <manufacturer Name="Manufacturer2">
+      <Id>manufacturer-2</Id>
       <country>Country2</country>
     </manufacturer>
-    <warehouse name="Warehouse1">
-      <id>warehouse-1</id>
-      <address>
-        <countryName>Country4</countryName>
-        <cityName>City4</cityName>
-        <streetName>Street4</streetName>
-        <houseNumber>4</houseNumber>
-      </address>
+    <warehouse Name="Warehouse1">
+      <Id>warehouse-1</Id>
+      <WarehouseAddress>
+        <CountryName>Country4</CountryName>
+        <CityName>City4</CityName>
+        <StreetName>Street4</StreetName>
+        <HouseNumber>4</HouseNumber>
+      </WarehouseAddress>
     </warehouse>
     <supply>
-      <id>supply-9</id>
-      <description>Supply of Products9</description>
-      <date>02.19.2010</date>
+      <Id>supply-9</Id>
+      <Description>Supply of Products9</Description>
+      <Date>02.19.2010</Date>
     </supply>
   </product>
 </products>

@@ -5,44 +5,34 @@
         //This program implements store based on JSONs for managing products
         static void Main(string[] args)
         {
-            /*
             // Creating test Jsons
             JsonsForTests.CreateAllJsons();
-            */
 
             Shop myShop = new Shop();
             myShop.ShowFullDescription();
             myShop.WriteFullDescription();
 
-            Address myAddress = new Address()
+            Address myAddress1 = new Address()
             {
-                id = "my-address",
-                cityName = "myCity",
-                streetName = "myStreet",
-                houseNumber = "228",
-                countryName = "myCountry"
+                Id = "my-WarehouseAddress",
+                CityName = "myCity",
+                StreetName = "myStreet",
+                HouseNumber = "228",
+                CountryName = "myCountry"
             };
 
-            //After these changes, the files should be automatically regenerated.
-            myShop.ChangeWarehouseAddress("Warehouse2", myAddress);
+            myShop.ChangeWarehouseAddress("warehouse-2", myAddress1);
 
-            Product myProduct = new Product()
+            Address myAddress2 = new Address()
             {
-                id = "product-8080",
-                name = "myProduct",
-                amount = "100500",
-                manufacturerId = "manufacturer-3",
-                warehouseId = "warehouse-2",
-                supplyId = "supply-7",
-                productionDate = "05.20.2019"
+                Id = "changed-address",
+                CityName = "changed_City",
+                StreetName = "changed_Street",
+                HouseNumber = "1488",
+                CountryName = "changed_Country"
             };
 
-            myShop.AddProduct(myProduct);
-            myShop.DeleteProduct("Product1");
-
-            myShop.products[0].name = "megaProduct";
-            myShop.warehouses[0].name = "megaWarehouse";
-            myShop.warehouses[0].address.cityName = "megaCity";
+            myShop.ChangeAddress("address-4", myAddress2);
         }       
     }
 }

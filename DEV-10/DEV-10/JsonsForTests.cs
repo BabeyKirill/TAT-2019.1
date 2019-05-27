@@ -23,26 +23,26 @@ namespace DEV_10
 
             manufacturers[0] = new Manufacturer()
             {
-                id = "manufacturer-1",
-                name = "Manufacturer1",
-                adressId = "address-1",
-                countryName = "Country1"
+                Id = "manufacturer-1",
+                Name = "Manufacturer1",
+                AdressId = "WarehouseAddress-1",
+                CountryName = "Country1"
             };
 
             manufacturers[1] = new Manufacturer()
             {
-                id = "manufacturer-2",
-                name = "Manufacturer2",
-                adressId = "address-2",
-                countryName = "Country2"
+                Id = "manufacturer-2",
+                Name = "Manufacturer2",
+                AdressId = "WarehouseAddress-2",
+                CountryName = "Country2"
             };
 
             manufacturers[2] = new Manufacturer()
             {
-                id = "manufacturer-3",
-                name = "Manufacturer3",
-                adressId = "address-3",
-                countryName = "Country3"
+                Id = "manufacturer-3",
+                Name = "Manufacturer3",
+                AdressId = "WarehouseAddress-3",
+                CountryName = "Country3"
             };
 
             using (StreamWriter file = File.CreateText(@"../../DataBase/manufacturers.json"))
@@ -59,29 +59,29 @@ namespace DEV_10
 
             warehouses[0] = new Warehouse()
             {
-                id = "warehouse-1",
-                name = "Warehouse1",
-                address = new Address()
+                Id = "warehouse-1",
+                Name = "Warehouse1",
+                WarehouseAddress = new Address()
                 {
-                    id = "adress-4",
-                    cityName = "City4",
-                    streetName = "Street4",
-                    houseNumber = "4",
-                    countryName = "Country4"
+                    Id = "address-4",
+                    CityName = "City4",
+                    StreetName = "Street4",
+                    HouseNumber = "4",
+                    CountryName = "Country4"
                 }
             };
 
             warehouses[1] = new Warehouse()
             {
-                id = "warehouse-2",
-                name = "Warehouse2",
-                address = new Address()
+                Id = "warehouse-2",
+                Name = "Warehouse2",
+                WarehouseAddress = new Address()
                 {
-                    id = "adress-5",
-                    cityName = "City5",
-                    streetName = "Street5",
-                    houseNumber = "5",
-                    countryName = "Country4"
+                    Id = "address-5",
+                    CityName = "City5",
+                    StreetName = "Street5",
+                    HouseNumber = "5",
+                    CountryName = "Country4"
                 }
             };
 
@@ -99,47 +99,47 @@ namespace DEV_10
 
             addresses[0] = new Address()
             {
-                id = "adress-1",
-                cityName = "City1",
-                streetName = "Street1",
-                houseNumber = "1",
-                countryName = "Country1"
+                Id = "address-1",
+                CityName = "City1",
+                StreetName = "Street1",
+                HouseNumber = "1",
+                CountryName = "Country1"
             };
 
             addresses[1] = new Address()
             {
-                id = "adress-2",
-                cityName = "City2",
-                streetName = "Street2",
-                houseNumber = "2",
-                countryName = "Country2"
+                Id = "address-2",
+                CityName = "City2",
+                StreetName = "Street2",
+                HouseNumber = "2",
+                CountryName = "Country2"
             };
 
             addresses[2] = new Address()
             {
-                id = "adress-3",
-                cityName = "City3",
-                streetName = "Street3",
-                houseNumber = "3",
-                countryName = "Country3"
+                Id = "address-3",
+                CityName = "City3",
+                StreetName = "Street3",
+                HouseNumber = "3",
+                CountryName = "Country3"
             };
 
             addresses[3] = new Address()
             {
-                id = "adress-4",
-                cityName = "City4",
-                streetName = "Street4",
-                houseNumber = "4",
-                countryName = "Country4"
+                Id = "address-4",
+                CityName = "City4",
+                StreetName = "Street4",
+                HouseNumber = "4",
+                CountryName = "Country4"
             };
 
             addresses[4] = new Address()
             {
-                id = "adress-5",
-                cityName = "City5",
-                streetName = "Street5",
-                houseNumber = "5",
-                countryName = "Country4"
+                Id = "address-5",
+                CityName = "City5",
+                StreetName = "Street5",
+                HouseNumber = "5",
+                CountryName = "Country4"
             };
 
             using (StreamWriter file = File.CreateText(@"../../DataBase/addresses.json"))
@@ -155,101 +155,101 @@ namespace DEV_10
 
             products[0] = new Product()
             {
-                id = "product-1",
-                name = "Product1",
-                amount = "11",
-                manufacturerId = "manufacturer-1",
-                warehouseId = "warehouse-1",
-                supplyId = "supply-1",
-                productionDate = "01.11.2010"
+                Id = "product-1",
+                Name = "Product1",
+                Amount = "11",
+                ManufacturerId = "manufacturer-1",
+                WarehouseId = "warehouse-1",
+                SupplyId = "supply-1",
+                ProductionDate = "01.11.2010"
             };
 
             products[1] = new Product()
             {
-                id = "product-2",
-                name = "Product2",
-                amount = "12",
-                manufacturerId = "manufacturer-3",
-                warehouseId = "warehouse-1",
-                supplyId = "supply-2",
-                productionDate = "01.12.2010"
+                Id = "product-2",
+                Name = "Product2",
+                Amount = "12",
+                ManufacturerId = "manufacturer-3",
+                WarehouseId = "warehouse-1",
+                SupplyId = "supply-2",
+                ProductionDate = "01.12.2010"
             };
 
             products[2] = new Product()
             {
-                id = "product-3",
-                name = "Product3",
-                amount = "13",
-                manufacturerId = "manufacturer-3",
-                warehouseId = "warehouse-2",
-                supplyId = "supply-3",
-                productionDate = "01.13.2010"
+                Id = "product-3",
+                Name = "Product3",
+                Amount = "13",
+                ManufacturerId = "manufacturer-3",
+                WarehouseId = "warehouse-2",
+                SupplyId = "supply-3",
+                ProductionDate = "01.13.2010"
             };
 
             products[3] = new Product()
             {
-                id = "product-4",
-                name = "Product4",
-                amount = "14",
-                manufacturerId = "manufacturer-1",
-                warehouseId = "warehouse-2",
-                supplyId = "supply-4",
-                productionDate = "01.14.2010"
+                Id = "product-4",
+                Name = "Product4",
+                Amount = "14",
+                ManufacturerId = "manufacturer-1",
+                WarehouseId = "warehouse-2",
+                SupplyId = "supply-4",
+                ProductionDate = "01.14.2010"
             };
 
             products[4] = new Product()
             {
-                id = "product-5",
-                name = "Product5",
-                amount = "15",
-                manufacturerId = "manufacturer-2",
-                warehouseId = "warehouse-2",
-                supplyId = "supply-5",
-                productionDate = "01.15.2010"
+                Id = "product-5",
+                Name = "Product5",
+                Amount = "15",
+                ManufacturerId = "manufacturer-2",
+                WarehouseId = "warehouse-2",
+                SupplyId = "supply-5",
+                ProductionDate = "01.15.2010"
             };
 
             products[5] = new Product()
             {
-                id = "product-6",
-                name = "Product6",
-                amount = "16",
-                manufacturerId = "manufacturer-2",
-                warehouseId = "warehouse-1",
-                supplyId = "supply-6",
-                productionDate = "01.16.2010"
+                Id = "product-6",
+                Name = "Product6",
+                Amount = "16",
+                ManufacturerId = "manufacturer-2",
+                WarehouseId = "warehouse-1",
+                SupplyId = "supply-6",
+                ProductionDate = "01.16.2010"
             };
 
             products[6] = new Product()
             {
-                id = "product-7",
-                name = "Product7",
-                amount = "17",
-                manufacturerId = "manufacturer-1",
-                warehouseId = "warehouse-1",
-                supplyId = "supply-7",
-                productionDate = "01.17.2010"
+                Id = "product-7",
+                Name = "Product7",
+                Amount = "17",
+                ManufacturerId = "manufacturer-1",
+                WarehouseId = "warehouse-1",
+                SupplyId = "supply-7",
+                ProductionDate = "01.17.2010"
             };
 
             products[7] = new Product()
             {
-                id = "product-8",
-                name = "Product8",
-                amount = "18",
-                manufacturerId = "manufacturer-3",
-                warehouseId = "warehouse-2",
-                supplyId = "supply-8",
-                productionDate = "01.18.2010"
+                Id = "product-8",
+                Name = "Product8",
+                Amount = "18",
+                ManufacturerId = "manufacturer-3",
+                WarehouseId = "warehouse-2",
+                SupplyId = "supply-8",
+                ProductionDate = "01.18.2010"
             };
 
             products[8] = new Product()
             {
-                id = "product-9",
-                name = "Product9",
-                amount = "19",
-                manufacturerId = "manufacturer-2",
-                warehouseId = "warehouse-1",
-                supplyId = "supply-9",
-                productionDate = "01.19.2010"
+                Id = "product-9",
+                Name = "Product9",
+                Amount = "19",
+                ManufacturerId = "manufacturer-2",
+                WarehouseId = "warehouse-1",
+                SupplyId = "supply-9",
+                ProductionDate = "01.19.2010"
             };
 
             using (StreamWriter file = File.CreateText(@"../../DataBase/products.json"))
@@ -266,65 +266,65 @@ namespace DEV_10
 
             supplies[0] = new Supply()
             {
-                id = "supply-1",
-                description = "Supply of Products1",
-                date = "02.11.2010"
+                Id = "supply-1",
+                Description = "Supply of Products1",
+                Date = "02.11.2010"
             };
 
             supplies[1] = new Supply()
             {
-                id = "supply-2",
-                description = "Supply of Products2",
-                date = "02.12.2010"
+                Id = "supply-2",
+                Description = "Supply of Products2",
+                Date = "02.12.2010"
             };
 
             supplies[2] = new Supply()
             {
-                id = "supply-3",
-                description = "Supply of Products3",
-                date = "02.13.2010"
+                Id = "supply-3",
+                Description = "Supply of Products3",
+                Date = "02.13.2010"
             };
 
             supplies[3] = new Supply()
             {
-                id = "supply-4",
-                description = "Supply of Products4",
-                date = "02.14.2010"
+                Id = "supply-4",
+                Description = "Supply of Products4",
+                Date = "02.14.2010"
             };
 
             supplies[4] = new Supply()
             {
-                id = "supply-5",
-                description = "Supply of Products5",
-                date = "02.15.2010"
+                Id = "supply-5",
+                Description = "Supply of Products5",
+                Date = "02.15.2010"
             };
 
             supplies[5] = new Supply()
             {
-                id = "supply-6",
-                description = "Supply of Products6",
-                date = "02.16.2010"
+                Id = "supply-6",
+                Description = "Supply of Products6",
+                Date = "02.16.2010"
             };
 
             supplies[6] = new Supply()
             {
-                id = "supply-7",
-                description = "Supply of Products7",
-                date = "02.17.2010"
+                Id = "supply-7",
+                Description = "Supply of Products7",
+                Date = "02.17.2010"
             };
 
             supplies[7] = new Supply()
             {
-                id = "supply-8",
-                description = "Supply of Products8",
-                date = "02.18.2010"
+                Id = "supply-8",
+                Description = "Supply of Products8",
+                Date = "02.18.2010"
             };
 
             supplies[8] = new Supply()
             {
-                id = "supply-9",
-                description = "Supply of Products9",
-                date = "02.19.2010"
+                Id = "supply-9",
+                Description = "Supply of Products9",
+                Date = "02.19.2010"
             };
 
             using (StreamWriter file = File.CreateText(@"../../DataBase/supplies.json"))

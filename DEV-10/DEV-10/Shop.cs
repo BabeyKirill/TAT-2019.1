@@ -9,51 +9,378 @@ namespace DEV_10
 {
     class Shop
     {
-        public List<Product> products { get; set; }
-        public List<Supply> supplies { get; set; }
-        public List<Address> addresses { get; set; }
-        public List<Manufacturer> manufacturers { get; set; }
-        public List<Warehouse> warehouses { get; set; }
+        /// <summary>
+        /// delegate responsible for changing list of objects
+        /// </summary>
+        public delegate void ShopStateHandler();
+        public event ShopStateHandler ProductsListChanged;
+        public event ShopStateHandler WarehousesListChanged;
+        public event ShopStateHandler ManufacturersListChanged;
+        public event ShopStateHandler SuppliesListChanged;
+        public event ShopStateHandler AddressesListChanged;
 
         /// <summary>
-        /// Сonstructor initializing lists of objects using JSON files and subcscribe them to events
+        /// delegate responsible for address changes
+        /// </summary>
+        public delegate void ShopAddressesStateHandler(string oldAddressId, Address newAddress);
+        public event ShopAddressesStateHandler WarehouseAddressChanged;      
+        public event ShopAddressesStateHandler AddressChanged;
+
+        private List<Product> products { get; set; }
+        private List<Supply> supplies { get; set; }
+        private List<Address> addresses { get; set; }
+        private List<Manufacturer> manufacturers { get; set; }
+        private List<Warehouse> warehouses { get; set; }
+
+        /// <summary>
+        /// Сonstructor initializing lists of objects using JSON files and subcscribes to events
         /// </summary>
         public Shop()
         {
+            this.ProductsListChanged += UpdateProductsJson;
+            this.WarehouseAddressChanged += UpdateWarehouseAddress;
+            this.WarehousesListChanged += UpdateWarehousesJson;
+            this.ManufacturersListChanged += UpdateManufacturersJson;
+            this.SuppliesListChanged += UpdateSuppliesJson;
+            this.AddressesListChanged += UpdateAddressesJson;
+            this.AddressChanged += UpdateAddressChanges;
+
             string productsJson = File.ReadAllText(@"../../DataBase/products.json");
             this.products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
-            foreach (Product prod in products)
-            {
-                prod.ProductChanged += UpdateProductsJson;
-            }
 
             string suppliesJson = File.ReadAllText(@"../../DataBase/supplies.json");
             this.supplies = JsonConvert.DeserializeObject<List<Supply>>(suppliesJson);
-            foreach (Supply supp in supplies)
-            {
-                supp.SupplyChanged += UpdateSuppliesJson;
-            }
 
             string addressesJson = File.ReadAllText(@"../../DataBase/addresses.json");
             this.addresses = JsonConvert.DeserializeObject<List<Address>>(addressesJson);
-            foreach (Address addr in addresses)
-            {
-                addr.AddressChanged += UpdateAddressesJson;
-            }
 
             string manufacturersJson = File.ReadAllText(@"../../DataBase/manufacturers.json");
             this.manufacturers = JsonConvert.DeserializeObject<List<Manufacturer>>(manufacturersJson);
-            foreach (Manufacturer manuf in manufacturers)
-            {
-                manuf.ManufacturerChanged += UpdateManufacturersJson;
-            }
 
             string warehousesJson = File.ReadAllText(@"../../DataBase/warehouses.json");
             this.warehouses = JsonConvert.DeserializeObject<List<Warehouse>>(warehousesJson);
-            foreach (Warehouse ware in warehouses)
+        }
+
+        /// <summary>
+        /// Handles the warehouse address change event.
+        /// </summary>
+        public void UpdateWarehouseAddress(string oldAddressId, Address newAddress)
+        {
+            int addressIndex = addresses.FindIndex(obj => obj.Id == oldAddressId);
+
+            if (addressIndex >= 0)
             {
-                ware.WarehouseChanged += UpdateWarehousesJson;
+                addresses[addressIndex] = newAddress;           
             }
+            else
+            {
+                addresses.Add(newAddress);                          
+            }
+
+            UpdateAddressesJson();
+            UpdateWarehousesJson();
+        }
+
+        /// <summary>
+        /// Handles an address change event in the address list
+        /// </summary>
+        public void UpdateAddressChanges(string oldAddressId, Address newAddress)
+        {
+            int manufacturerIndex = manufacturers.FindIndex(obj => obj.AdressId == oldAddressId);
+            int warehouseIndex = warehouses.FindIndex(obj => obj.WarehouseAddress.Id == oldAddressId);
+
+            if (manufacturerIndex >= 0)
+            {
+                manufacturers[manufacturerIndex].Id = newAddress.Id;
+                UpdateManufacturersJson();
+            }
+
+            if (warehouseIndex >= 0)
+            {
+                warehouses[warehouseIndex].WarehouseAddress = newAddress;
+                UpdateWarehousesJson();
+            }           
+            
+            UpdateAddressesJson();
+        }
+
+        /// <summary>
+        /// adds Product object to list of products
+        /// </summary>
+        public void AddProduct(Product newProduct)
+        {
+            if (newProduct.Id != null)
+            {
+                if (products.FindIndex(obj => obj.Id == newProduct.Id) < 0)
+                {
+                    products.Add(newProduct);
+                    ProductsListChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes Product object from list of products
+        /// </summary>
+        public void DeleteProduct(string productId)
+        {
+            int productIndex = products.FindIndex(obj => obj.Id == productId);
+
+            if (productIndex >= 0)
+            {
+                products.RemoveAt(productIndex);
+                ProductsListChanged();
+            }
+        }
+
+        /// <summary>
+        /// Changes warehouse WarehouseAddress to a new one.
+        /// </summary>
+        public void ChangeWarehouseAddress(string warehouseId, Address newAddress)
+        {
+            if (newAddress.Id != null)
+            {
+                int warehouseIndex = warehouses.FindIndex(obj => obj.Id == warehouseId);
+
+                if (warehouseIndex >= 0)
+                {
+                    string oldAddressId = warehouses[warehouseIndex].WarehouseAddress.Id;
+                    warehouses[warehouseIndex].WarehouseAddress = newAddress;
+                    WarehouseAddressChanged(oldAddressId, newAddress);
+                }
+            }
+        }
+
+        /// <summary>
+        /// adds Warehouse object to list of warehouses
+        /// </summary>
+        public void AddWarehouse(Warehouse newWarehouse)
+        {
+            if (newWarehouse.Id != null)
+            {
+                if (warehouses.FindIndex(obj => obj.Id == newWarehouse.Id) < 0)
+                {
+                    warehouses.Add(newWarehouse);
+                    WarehousesListChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes Warehouse object from list of warehouses
+        /// </summary>
+        public void DeleteWarehouse(string warehouseId)
+        {
+            int warehouseIndex = warehouses.FindIndex(obj => obj.Id == warehouseId);
+
+            if (warehouseIndex >= 0)
+            {
+                warehouses.RemoveAt(warehouseIndex);
+                WarehousesListChanged();
+            }      
+        }
+
+        /// <summary>
+        /// Adds Manufacturer object to list of warehouses
+        /// </summary>
+        public void AddManufacturer(Manufacturer newManufacturer)
+        {
+            if (newManufacturer.Id != null)
+            {
+                if (manufacturers.FindIndex(obj => obj.Id == newManufacturer.Id) < 0)
+                {
+                    manufacturers.Add(newManufacturer);
+                    ManufacturersListChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes Manufacturer object from list of warehouses
+        /// </summary>
+        public void DeleteManufacturer(string manufacturerId)
+        {
+            int manufacturerIndex = manufacturers.FindIndex(obj => obj.Id == manufacturerId);
+
+            if (manufacturerIndex >= 0)
+            {
+                warehouses.RemoveAt(manufacturerIndex);
+                ManufacturersListChanged();
+            }
+        }
+
+        /// <summary>
+        /// adds Supply object to list of warehouses
+        /// </summary>
+        public void AddSupply(Supply newSupply)
+        {
+            if (newSupply.Id != null)
+            {
+                if (supplies.FindIndex(obj => obj.Id == newSupply.Id) < 0)
+                {
+                    supplies.Add(newSupply);
+                    SuppliesListChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes Supply object from list of warehouses
+        /// </summary>
+        public void DeleteSupply(string supplyId)
+        {
+            int supplyIndex = supplies.FindIndex(obj => obj.Id == supplyId);
+
+            if (supplyIndex >= 0)
+            {
+                warehouses.RemoveAt(supplyIndex);
+                SuppliesListChanged();
+            }
+        }
+
+        /// <summary>
+        /// adds Address object to list of warehouses
+        /// </summary>
+        public void AddAddress(Address newAddress)
+        {
+            if (newAddress.Id != null)
+            {
+                if (addresses.FindIndex(obj => obj.Id == newAddress.Id) < 0)
+                {
+                    addresses.Add(newAddress);
+                    AddressesListChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes Address object from list of warehouses
+        /// </summary>
+        public void DeleteAddress(string addressId)
+        {
+            int addressIndex = addresses.FindIndex(obj => obj.Id == addressId);
+
+            if (addressIndex >= 0)
+            {
+                warehouses.RemoveAt(addressIndex);
+                AddressesListChanged();
+            }
+        }
+
+        /// <summary>
+        /// Changes the address with the specified Id to another Address
+        /// </summary>
+        public void ChangeAddress(string addressId, Address newAddress)
+        {
+            if (newAddress.Id != null)
+            {
+                int addressIndex = addresses.FindIndex(obj => obj.Id == addressId);
+
+                if (addressIndex >= 0)
+                {
+                    string oldAddressId = addresses[addressIndex].Id;
+                    addresses[addressIndex] = newAddress;
+                    AddressChanged(oldAddressId, newAddress);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Writes all information about all products to the console from JSON files.
+        /// </summary>
+        public void ShowFullDescription()
+        {
+            foreach (Product prod in this.products)
+            {
+                Console.WriteLine($"Product Name: {prod.Name}");
+                Console.WriteLine($"Id: {prod.Id}");
+                Console.WriteLine($"Amount: {prod.Amount}");
+                Console.WriteLine($"Production Date: {prod.ProductionDate}");
+
+                Manufacturer manufacturer = manufacturers.Find(obj => obj.Id == prod.ManufacturerId);
+                Console.WriteLine($"Manufacturer Name: {manufacturer.Name}");
+                Console.WriteLine($"Manufacturer Id: {manufacturer.Id}");
+                Console.WriteLine($"Manufacturer country: {manufacturer.CountryName}");
+
+                Warehouse warehouse = warehouses.Find(obj => obj.Id == prod.WarehouseId);
+                Console.WriteLine($"Warehouse Name: {warehouse.Name}");
+                Console.WriteLine($"Warehouse Id: {warehouse.Id}");
+                Console.WriteLine($"Warehouse WarehouseAddress: {warehouse.WarehouseAddress.CountryName}/{warehouse.WarehouseAddress.CityName}/{warehouse.WarehouseAddress.StreetName}/{warehouse.WarehouseAddress.HouseNumber}");
+
+                Supply supply = supplies.Find(obj => obj.Id == prod.SupplyId);
+                Console.WriteLine($"Supply Id: {supply.Id}");
+                Console.WriteLine($"Supply Description: {supply.Description}");
+                Console.WriteLine($"Supply Date: {supply.Date}");
+
+                Console.WriteLine("-----------------------------------------------");
+            }
+        }
+
+        /// <summary>
+        /// Writes all information about all products to the xml file from JSON files.
+        /// </summary>
+        public void WriteFullDescription()
+        {
+            XDocument xdoc = new XDocument();
+            XElement rootElem = new XElement("products");
+
+            foreach (Product prod in this.products)
+            {
+                XElement product = new XElement("product");
+                XAttribute productNameAttr = new XAttribute("Name", prod.Name);
+                XElement productIdElem = new XElement("Id", prod.Id);
+                XElement amountElem = new XElement("Amount", prod.Amount);
+                XElement productionDateElem = new XElement("ProductionDate", prod.ProductionDate);
+
+                Manufacturer manufacturer = manufacturers.Find(obj => obj.Id == prod.ManufacturerId);
+                XElement manufacturerElem = new XElement("manufacturer");
+                XAttribute manufacturerNameAttr = new XAttribute("Name", manufacturer.Name);
+                XElement manufacturerIdElem = new XElement("Id", manufacturer.Id);
+                XElement manufacturerCountryElem = new XElement("country", manufacturer.CountryName);
+                manufacturerElem.Add(manufacturerNameAttr);
+                manufacturerElem.Add(manufacturerIdElem);
+                manufacturerElem.Add(manufacturerCountryElem);
+
+                Warehouse warehouse = warehouses.Find(obj => obj.Id == prod.WarehouseId);
+                XElement warehouseElem = new XElement("warehouse");
+                XAttribute warehouseNameAttr = new XAttribute("Name", warehouse.Name);
+                XElement warehouseIdElem = new XElement("Id", warehouse.Id);
+                XElement warehouseAddressElem = new XElement("WarehouseAddress");
+                XElement warehouseAddressCountry = new XElement("CountryName", warehouse.WarehouseAddress.CountryName);
+                XElement warehouseAddressCity = new XElement("CityName", warehouse.WarehouseAddress.CityName);
+                XElement warehouseAddressStreet = new XElement("StreetName", warehouse.WarehouseAddress.StreetName);
+                XElement warehouseAddressHouse = new XElement("HouseNumber", warehouse.WarehouseAddress.HouseNumber);
+                warehouseAddressElem.Add(warehouseAddressCountry);
+                warehouseAddressElem.Add(warehouseAddressCity);
+                warehouseAddressElem.Add(warehouseAddressStreet);
+                warehouseAddressElem.Add(warehouseAddressHouse);
+                warehouseElem.Add(warehouseNameAttr);
+                warehouseElem.Add(warehouseIdElem);
+                warehouseElem.Add(warehouseAddressElem);
+
+                Supply supply = supplies.Find(obj => obj.Id == prod.SupplyId);
+                XElement supplyElem = new XElement("supply");
+                XElement supplyIdElem = new XElement("Id", supply.Id);
+                XElement supplyDescriptionElem = new XElement("Description", supply.Description);
+                XElement supplyDateElem = new XElement("Date", supply.Date);
+                supplyElem.Add(supplyIdElem);
+                supplyElem.Add(supplyDescriptionElem);
+                supplyElem.Add(supplyDateElem);
+
+                product.Add(productNameAttr);
+                product.Add(productIdElem);
+                product.Add(amountElem);
+                product.Add(productionDateElem);
+                product.Add(manufacturerElem);
+                product.Add(warehouseElem);
+                product.Add(supplyElem);
+
+                rootElem.Add(product);
+            }
+
+            xdoc.Add(rootElem);
+
+            xdoc.Save(@"../../DataBase/products.xml");
         }
 
         public void UpdateProductsJson()
@@ -104,163 +431,6 @@ namespace DEV_10
                 //serialize object directly into file stream
                 serializer.Serialize(file, this.warehouses);
             }
-        }
-
-        /// <summary>
-        /// adds Product object to list of products and JSON file
-        /// </summary>
-        public void AddProduct(Product newProduct)
-        {
-            this.products.Add(newProduct);
-            this.products[products.Count - 1].ProductChanged += UpdateProductsJson;
-
-            UpdateProductsJson();
-        }
-
-        /// <summary>
-        /// Removes Product object from list of products and JSON file
-        /// </summary>
-        public void DeleteProduct(string productName)
-        {
-            Product removingProduct = products.Find(obj => obj.name == productName);
-            this.products.Remove(removingProduct);
-
-            UpdateProductsJson();
-        }
-
-        /// <summary>
-        /// Changes warehouse address to a new one.
-        /// </summary>
-        public void ChangeWarehouseAddress(string warehouseName, Address newAddress)
-        {
-            int warehousesIndex = warehouses.FindIndex(obj => obj.name == warehouseName);
-            string warehouseAddressId = this.warehouses[warehousesIndex].address.id;
-            int addressesIndex = addresses.FindIndex(obj => obj.id == warehouseAddressId);
-            this.addresses[addressesIndex] = newAddress;
-            this.warehouses[warehousesIndex].address = newAddress;
-
-            UpdateAddressesJson();
-            UpdateWarehousesJson();
-        }
-
-        /// <summary>
-        /// adds Warehouse object to list of warehouses and JSON file
-        /// </summary>
-        public void AddWarehouse(Warehouse newWarehouse)
-        {
-            this.warehouses.Add(newWarehouse);
-            this.warehouses[warehouses.Count - 1].WarehouseChanged += UpdateWarehousesJson;
-
-            UpdateWarehousesJson();
-        }
-
-        /// <summary>
-        /// Removes Warehouse object from list of warehouses and JSON file
-        /// </summary>
-        public void DeleteWarehouse(string warehouseName)
-        {
-            Warehouse removingWarehouse = warehouses.Find(obj => obj.name == warehouseName);
-            this.warehouses.Remove(removingWarehouse);
-
-            UpdateWarehousesJson();
-        }
-
-        /// <summary>
-        /// Writes all information about all products to the console from JSON files.
-        /// </summary>
-        public void ShowFullDescription()
-        {
-            foreach (Product prod in this.products)
-            {
-                Console.WriteLine($"Product name: {prod.name}");
-                Console.WriteLine($"id: {prod.id}");
-                Console.WriteLine($"amount: {prod.amount}");
-                Console.WriteLine($"Production date: {prod.productionDate}");
-
-                Manufacturer manufacturer = manufacturers.Find(obj => obj.id == prod.manufacturerId);
-                Console.WriteLine($"Manufacturer name: {manufacturer.name}");
-                Console.WriteLine($"Manufacturer id: {manufacturer.id}");
-                Console.WriteLine($"Manufacturer country: {manufacturer.countryName}");
-
-                Warehouse warehouse = warehouses.Find(obj => obj.id == prod.warehouseId);
-                Console.WriteLine($"Warehouse name: {warehouse.name}");
-                Console.WriteLine($"Warehouse id: {warehouse.id}");
-                Console.WriteLine($"Warehouse address: {warehouse.address.countryName}/{warehouse.address.cityName}/{warehouse.address.streetName}/{warehouse.address.houseNumber}");
-
-                Supply supply = supplies.Find(obj => obj.id == prod.supplyId);
-                Console.WriteLine($"Supply id: {supply.id}");
-                Console.WriteLine($"Supply description: {supply.description}");
-                Console.WriteLine($"Supply date: {supply.date}");
-
-                Console.WriteLine("-----------------------------------------------");
-            }
-        }
-
-        /// <summary>
-        /// Writes all information about all products to the xml file from JSON files.
-        /// </summary>
-        public void WriteFullDescription()
-        {
-            XDocument xdoc = new XDocument();
-            XElement rootElem = new XElement("products");
-
-            foreach (Product prod in this.products)
-            {
-                XElement product = new XElement("product");
-                XAttribute productNameAttr = new XAttribute("name", prod.name);
-                XElement productIdElem = new XElement("id", prod.id);
-                XElement amountElem = new XElement("amount", prod.amount);
-                XElement productionDateElem = new XElement("productionDate", prod.productionDate);
-
-                Manufacturer manufacturer = manufacturers.Find(obj => obj.id == prod.manufacturerId);
-                XElement manufacturerElem = new XElement("manufacturer");
-                XAttribute manufacturerNameAttr = new XAttribute("name", manufacturer.name);
-                XElement manufacturerIdElem = new XElement("id", manufacturer.id);
-                XElement manufacturerCountryElem = new XElement("country", manufacturer.countryName);
-                manufacturerElem.Add(manufacturerNameAttr);
-                manufacturerElem.Add(manufacturerIdElem);
-                manufacturerElem.Add(manufacturerCountryElem);
-
-                Warehouse warehouse = warehouses.Find(obj => obj.id == prod.warehouseId);
-                XElement warehouseElem = new XElement("warehouse");
-                XAttribute warehouseNameAttr = new XAttribute("name", warehouse.name);
-                XElement warehouseIdElem = new XElement("id", warehouse.id);
-                XElement warehouseAddressElem = new XElement("address");
-                XElement warehouseAddressCountry = new XElement("countryName", warehouse.address.countryName);
-                XElement warehouseAddressCity = new XElement("cityName", warehouse.address.cityName);
-                XElement warehouseAddressStreet = new XElement("streetName", warehouse.address.streetName);
-                XElement warehouseAddressHouse = new XElement("houseNumber", warehouse.address.houseNumber);
-                warehouseAddressElem.Add(warehouseAddressCountry);
-                warehouseAddressElem.Add(warehouseAddressCity);
-                warehouseAddressElem.Add(warehouseAddressStreet);
-                warehouseAddressElem.Add(warehouseAddressHouse);
-                warehouseElem.Add(warehouseNameAttr);
-                warehouseElem.Add(warehouseIdElem);
-                warehouseElem.Add(warehouseAddressElem);
-
-                Supply supply = supplies.Find(obj => obj.id == prod.supplyId);
-                XElement supplyElem = new XElement("supply");
-                XElement supplyIdElem = new XElement("id", supply.id);
-                XElement supplyDescriptionElem = new XElement("description", supply.description);
-                XElement supplyDateElem = new XElement("date", supply.date);
-                supplyElem.Add(supplyIdElem);
-                supplyElem.Add(supplyDescriptionElem);
-                supplyElem.Add(supplyDateElem);
-
-                product.Add(productNameAttr);
-                product.Add(productIdElem);
-                product.Add(amountElem);
-                product.Add(productionDateElem);
-                product.Add(manufacturerElem);
-                product.Add(warehouseElem);
-                product.Add(supplyElem);
-
-                rootElem.Add(product);
-            }
-
-            xdoc.Add(rootElem);
-
-            xdoc.Save(@"../../DataBase/products.xml");
         }
     }
 }

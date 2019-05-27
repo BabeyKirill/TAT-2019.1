@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
-    <Compile Include="JsonCreator.cs" />
+    <Compile Include="JsonsForTests.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="EntryPoint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

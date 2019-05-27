@@ -1,1 +1,1 @@
-[{"Id":"manufacturer-1","Name":"Manufacturer1","AdressId":"address-1","CountryName":"Country1"},{"Id":"manufacturer-2","Name":"Manufacturer2","AdressId":"address-2","CountryName":"Country2"},{"Id":"manufacturer-3","Name":"Manufacturer3","AdressId":"address-3","CountryName":"Country3"}]
+[{"id":"manufacturer-1","name":"Manufacturer1","adressId":"address-1","countryName":"Country1"},{"id":"manufacturer-2","name":"Manufacturer2","adressId":"address-2","countryName":"Country2"},{"id":"manufacturer-3","name":"Manufacturer3","adressId":"address-3","countryName":"Country3"}]

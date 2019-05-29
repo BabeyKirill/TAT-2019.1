@@ -2,14 +2,22 @@
 {
     class EntryPoint
     {
-        //This program implements store based on JSONs for managing products
+        //This program implements store for managing products
         static void Main(string[] args)
         {
-            // Creating test Jsons
-            JsonsForTests.CreateAllJsons();
-
             Shop myShop = new Shop();
+            ShopEventHandler shopHandler= new ShopEventHandler(myShop);
+
+            myShop.ProductsListChanged += shopHandler.UpdateProductsJson;
+            myShop.WarehousesListChanged += shopHandler.UpdateWarehousesJson;
+            myShop.ManufacturersListChanged += shopHandler.UpdateManufacturersJson;
+            myShop.SuppliesListChanged += shopHandler.UpdateSuppliesJson;
+            myShop.AddressesListChanged += shopHandler.UpdateAddressesJson;
+
+            myShop.InitializeWithJson();
+
             myShop.ShowFullDescription();
+
             myShop.WriteFullDescription();
 
             Address myAddress1 = new Address()
@@ -33,6 +41,19 @@
             };
 
             myShop.ChangeAddress("address-4", myAddress2);
+
+            Product myNewProduct = new Product()
+            {
+                Id = "product-10",
+                Name = "myNewProduct",
+                Amount = "100500",
+                ManufacturerId = "manufacturer-3",
+                WarehouseId = "warehouse-2",
+                SupplyId = "supply-10",
+                ProductionDate = "05.29.2019"
+            };
+
+            myShop.AddProduct(myNewProduct);            
         }       
     }
 }

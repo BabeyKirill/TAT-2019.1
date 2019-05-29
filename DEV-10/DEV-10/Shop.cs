@@ -10,7 +10,7 @@ namespace DEV_10
     class Shop
     {
         /// <summary>
-        /// delegate responsible for changing list of objects
+        /// delegate responsible for changing lists of objects
         /// </summary>
         public delegate void ShopStateHandler();
         public event ShopStateHandler ProductsListChanged;
@@ -19,89 +19,46 @@ namespace DEV_10
         public event ShopStateHandler SuppliesListChanged;
         public event ShopStateHandler AddressesListChanged;
 
-        /// <summary>
-        /// delegate responsible for address changes
-        /// </summary>
-        public delegate void ShopAddressesStateHandler(string oldAddressId, Address newAddress);
-        public event ShopAddressesStateHandler WarehouseAddressChanged;      
-        public event ShopAddressesStateHandler AddressChanged;
-
-        private List<Product> products { get; set; }
-        private List<Supply> supplies { get; set; }
-        private List<Address> addresses { get; set; }
-        private List<Manufacturer> manufacturers { get; set; }
-        private List<Warehouse> warehouses { get; set; }
+        public List<Product> products { get; private set; }
+        public List<Supply> supplies { get; private set; }
+        public List<Address> addresses { get; private set; }
+        public List<Manufacturer> manufacturers { get; private set; }
+        public List<Warehouse> warehouses { get; private set; }
 
         /// <summary>
-        /// Сonstructor initializing lists of objects using JSON files and subcscribes to events
+        /// initializing lists of objects using JSON files
         /// </summary>
-        public Shop()
+        public void InitializeWithJson()
         {
-            this.ProductsListChanged += UpdateProductsJson;
-            this.WarehouseAddressChanged += UpdateWarehouseAddress;
-            this.WarehousesListChanged += UpdateWarehousesJson;
-            this.ManufacturersListChanged += UpdateManufacturersJson;
-            this.SuppliesListChanged += UpdateSuppliesJson;
-            this.AddressesListChanged += UpdateAddressesJson;
-            this.AddressChanged += UpdateAddressChanges;
-
-            string productsJson = File.ReadAllText(@"../../DataBase/products.json");
-            this.products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
-
-            string suppliesJson = File.ReadAllText(@"../../DataBase/supplies.json");
-            this.supplies = JsonConvert.DeserializeObject<List<Supply>>(suppliesJson);
-
-            string addressesJson = File.ReadAllText(@"../../DataBase/addresses.json");
-            this.addresses = JsonConvert.DeserializeObject<List<Address>>(addressesJson);
-
-            string manufacturersJson = File.ReadAllText(@"../../DataBase/manufacturers.json");
-            this.manufacturers = JsonConvert.DeserializeObject<List<Manufacturer>>(manufacturersJson);
-
-            string warehousesJson = File.ReadAllText(@"../../DataBase/warehouses.json");
-            this.warehouses = JsonConvert.DeserializeObject<List<Warehouse>>(warehousesJson);
-        }
-
-        /// <summary>
-        /// Handles the warehouse address change event.
-        /// </summary>
-        public void UpdateWarehouseAddress(string oldAddressId, Address newAddress)
-        {
-            int addressIndex = addresses.FindIndex(obj => obj.Id == oldAddressId);
-
-            if (addressIndex >= 0)
+            if (File.Exists(@"../../DataBase/products.json"))
             {
-                addresses[addressIndex] = newAddress;           
-            }
-            else
-            {
-                addresses.Add(newAddress);                          
+                string productsJson = File.ReadAllText(@"../../DataBase/products.json");
+                this.products = JsonConvert.DeserializeObject<List<Product>>(productsJson);
             }
 
-            UpdateAddressesJson();
-            UpdateWarehousesJson();
-        }
-
-        /// <summary>
-        /// Handles an address change event in the address list
-        /// </summary>
-        public void UpdateAddressChanges(string oldAddressId, Address newAddress)
-        {
-            int manufacturerIndex = manufacturers.FindIndex(obj => obj.AdressId == oldAddressId);
-            int warehouseIndex = warehouses.FindIndex(obj => obj.WarehouseAddress.Id == oldAddressId);
-
-            if (manufacturerIndex >= 0)
+            if (File.Exists(@"../../DataBase/supplies.json"))
             {
-                manufacturers[manufacturerIndex].Id = newAddress.Id;
-                UpdateManufacturersJson();
+                string suppliesJson = File.ReadAllText(@"../../DataBase/supplies.json");
+                this.supplies = JsonConvert.DeserializeObject<List<Supply>>(suppliesJson);
             }
 
-            if (warehouseIndex >= 0)
+            if (File.Exists(@"../../DataBase/addresses.json"))
             {
-                warehouses[warehouseIndex].WarehouseAddress = newAddress;
-                UpdateWarehousesJson();
-            }           
-            
-            UpdateAddressesJson();
+                string addressesJson = File.ReadAllText(@"../../DataBase/addresses.json");
+                this.addresses = JsonConvert.DeserializeObject<List<Address>>(addressesJson);
+            }
+
+            if (File.Exists(@"../../DataBase/manufacturers.json"))
+            {
+                string manufacturersJson = File.ReadAllText(@"../../DataBase/manufacturers.json");
+                this.manufacturers = JsonConvert.DeserializeObject<List<Manufacturer>>(manufacturersJson);
+            }
+
+            if (File.Exists(@"../../DataBase/warehouses.json"))
+            {
+                string warehousesJson = File.ReadAllText(@"../../DataBase/warehouses.json");
+                this.warehouses = JsonConvert.DeserializeObject<List<Warehouse>>(warehousesJson);
+            }
         }
 
         /// <summary>
@@ -140,13 +97,13 @@ namespace DEV_10
         {
             if (newAddress.Id != null)
             {
-                int warehouseIndex = warehouses.FindIndex(obj => obj.Id == warehouseId);
+                int Index = warehouses.FindIndex(obj => obj.Id == warehouseId);
 
-                if (warehouseIndex >= 0)
+                if (Index >= 0)
                 {
-                    string oldAddressId = warehouses[warehouseIndex].WarehouseAddress.Id;
-                    warehouses[warehouseIndex].WarehouseAddress = newAddress;
-                    WarehouseAddressChanged(oldAddressId, newAddress);
+                    string oldAddressId = warehouses[Index].WarehouseAddress.Id;
+                    warehouses[Index].WarehouseAddress = newAddress;
+                    WarehousesListChanged();
                 }
             }
         }
@@ -262,7 +219,7 @@ namespace DEV_10
 
             if (addressIndex >= 0)
             {
-                warehouses.RemoveAt(addressIndex);
+                addresses.RemoveAt(addressIndex);
                 AddressesListChanged();
             }
         }
@@ -278,9 +235,8 @@ namespace DEV_10
 
                 if (addressIndex >= 0)
                 {
-                    string oldAddressId = addresses[addressIndex].Id;
                     addresses[addressIndex] = newAddress;
-                    AddressChanged(oldAddressId, newAddress);
+                    AddressesListChanged();
                 }
             }
         }
@@ -311,13 +267,12 @@ namespace DEV_10
                 Console.WriteLine($"Supply Id: {supply.Id}");
                 Console.WriteLine($"Supply Description: {supply.Description}");
                 Console.WriteLine($"Supply Date: {supply.Date}");
-
                 Console.WriteLine("-----------------------------------------------");
             }
         }
 
         /// <summary>
-        /// Writes all information about all products to the xml file from JSON files.
+        /// Writes all information about all products to the xml file from shop object lists
         /// </summary>
         public void WriteFullDescription()
         {
@@ -381,56 +336,6 @@ namespace DEV_10
             xdoc.Add(rootElem);
 
             xdoc.Save(@"../../DataBase/products.xml");
-        }
-
-        public void UpdateProductsJson()
-        {
-            using (StreamWriter file = File.CreateText(@"../../DataBase/products.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, this.products);
-            }
-        }
-
-        public void UpdateSuppliesJson()
-        {
-            using (StreamWriter file = File.CreateText(@"../../DataBase/supplies.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, this.supplies);
-            }
-        }
-
-        public void UpdateAddressesJson()
-        {
-            using (StreamWriter file = File.CreateText(@"../../DataBase/addresses.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, this.addresses);
-            }
-        }
-
-        public void UpdateManufacturersJson()
-        {
-            using (StreamWriter file = File.CreateText(@"../../DataBase/manufacturers.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, this.manufacturers);
-            }
-        }
-
-        public void UpdateWarehousesJson()
-        {
-            using (StreamWriter file = File.CreateText(@"../../DataBase/warehouses.json"))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                //serialize object directly into file stream
-                serializer.Serialize(file, this.warehouses);
-            }
         }
     }
 }

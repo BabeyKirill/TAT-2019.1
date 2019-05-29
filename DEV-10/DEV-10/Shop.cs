@@ -242,7 +242,7 @@ namespace DEV_10
         }
 
         /// <summary>
-        /// Writes all information about all products to the console from JSON files.
+        /// Writes all information about all products to the console from shop object lists
         /// </summary>
         public void ShowFullDescription()
         {
